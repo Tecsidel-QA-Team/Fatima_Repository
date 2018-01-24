@@ -56,7 +56,7 @@ public class BOHost_operatorCreation extends Settingsfields_File {
 			@Test
 			public void OperatorCreation() throws Exception {
 				Actions action = new Actions(driver);	
-				borrarArchivosTemp("E:\\workspace\\Maria_Repository\\BOHost_crearOperadores\\attachments\\");
+				borrarArchivosTemp("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\");
 				try{
 					driver.get(BoHostUrl);
 					takeScreenShot("E:\\Selenium\\","loginBOTajPage"+timet+".jpg");
