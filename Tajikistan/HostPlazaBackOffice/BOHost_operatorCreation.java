@@ -107,9 +107,9 @@ public class BOHost_operatorCreation extends Settingsfields_File {
 					Thread.sleep(1000);
 					WebElement operatorGroup = new Select (driver.findElement(By.id("ctl00_ContentZone_group_cmb_dropdown"))).getFirstSelectedOption();
 					String operatorG = operatorGroup.getText();		
-					dateSel();
+				
 					driver.findElement(By.id("ctl00_ContentZone_dt_birth_box_date")).clear();
-					driver.findElement(By.id("ctl00_ContentZone_dt_birth_box_date")).sendKeys(sft.format(calT.getTime()));
+					driver.findElement(By.id("ctl00_ContentZone_dt_birth_box_date")).sendKeys(dateSel(1970,1980));
 					Thread.sleep(3000);
 					driver.findElement(By.id("ctl00_ContentZone_password_box_data")).sendKeys(usercreated);
 					driver.findElement(By.id("ctl00_ContentZone_password2_box_data")).sendKeys(usercreated);
@@ -168,14 +168,7 @@ public class BOHost_operatorCreation extends Settingsfields_File {
 					fail();
 				}
 			}
-			private static boolean isAlertPresent() throws Exception{
-				try{
-					driver.switchTo().alert();
-					return true;
-				}catch (Exception e){
-					return false;
-				}
-			}
+
 	}
 
 
