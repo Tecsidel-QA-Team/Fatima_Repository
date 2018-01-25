@@ -232,34 +232,41 @@ public class Settingsfields_File {
 			}
 
 		}
-	public static String getVersion (String versionSelected){
+	public static String getVersion (String BOSelected, String HMSelected){
    		
-			hmVersion = BOVersion.substring(1);
+			
+			int versionComponent = BOVersion.length();
+			 
 			if (BOVersion.contains("_")){								
-				if (BOVersion.length()<17){
-					BOVersion = BOVersion.substring(1);
+				if (versionComponent<17){					
+					BOVersion = BOVersion.substring(0);
 					hmVersion = "HM is not Running";
 				}else{
-					hmVersion = BOVersion.substring(18);
+					hmVersion = BOVersion.substring(17);
 					BOVersion = BOVersion.substring(0, 16);
 					
 				}
-			}else{
-				if (BOVersion.length()<10){
-					BOVersion = BOVersion.substring(1);
+			}
+			if (!BOVersion.contains("_")){
+				if (versionComponent<10){
+					BOVersion = BOVersion.substring(0);
 					hmVersion = "HM is not Running";
 				}else{
 					hmVersion = BOVersion.substring(11);
 					BOVersion = BOVersion.substring(0, 9);					
 				}
 			}
-			if (versionSelected == "BO"){
-				versionSelected = BOVersion;
+			if (BOSelected == "BO"){
+				BOSelected = "BOHost: "+BOVersion;
+				
 			}
-			if (versionSelected == "HM"){
-				versionSelected = hmVersion;
-			} 
-			return versionSelected;			
+			if (HMSelected == "HM"){
+				HMSelected = "HostManager: "+hmVersion;				
+			}
+				return BOSelected +" y "+ HMSelected; 
+			
+			
+						
    	}
 	
 }
