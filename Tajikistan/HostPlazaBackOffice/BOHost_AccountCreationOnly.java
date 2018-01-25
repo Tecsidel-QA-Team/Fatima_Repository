@@ -47,8 +47,8 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 			fail("No se ha podido crear la cuenta debido a "+errorText);
 		}
 		Thread.sleep(1000);
-		System.out.println("Se ha creado la cuenta "+accountNumbr+" correctamente");
-		System.out.println("Se ha probado en la versión del HostBO: " + getVersion("BO")+" y BOHostManager: "+getVersion("HM"));
+		System.out.println("Se ha creado la cuenta "+accountNumbr.substring(7, 16)+" correctamente");
+		System.out.println("Se ha probado en la versión del: "+ getVersion("BO","HM"));
 		
 	}
 	
