@@ -39,7 +39,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 	
 	
 	@Test
-	public void accountCreatoinOnlyInit() throws Exception{
+	public void accountCreatoinOnlyInit() throws Exception{		
 		Thread.sleep(1000);
 		accountCreationOnly();
 		if (passTax){
@@ -48,7 +48,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 		}
 		Thread.sleep(1000);
 		System.out.println("Se ha creado la cuenta "+accountNumbr+" correctamente");
-		System.out.println("Se ha probado en la versión del CAC BO: " + getVersion("BO")+" y CAC Manager: "+getVersion("HM"));
+		System.out.println("Se ha probado en la versión del HostBO: " + getVersion("BO")+" y BOHostManager: "+getVersion("HM"));
 		
 	}
 	
@@ -99,7 +99,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 				passTax = true;
 				return;
 			}
-		SendKeys(taxId, ranNumbr(100000000,99999999)+"");
+		SendKeys(taxId, ranNumbr(100000000,999999999)+"");
 		Thread.sleep(200);
 		int selOp = ranNumbr(0,9);
 		new Select(driver.findElement(By.id(titulofield))).selectByVisibleText(sexSelc[selOp]);
@@ -126,7 +126,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 		Thread.sleep(200);
 		SendKeys(emailf, nameOp[selOp].toLowerCase()+"."+lastNameOp[selOp].toLowerCase()+"@tecsidel.com");
 		Thread.sleep(200);
-		SendKeys(phoneCel,ranNumbr(600000000,6999999)+"");
+		SendKeys(phoneCel,ranNumbr(600000000,699999999)+"");
 		Thread.sleep(200);
 		SendKeys(workPhone,workPhone1[selOp]);
 		Thread.sleep(200);
