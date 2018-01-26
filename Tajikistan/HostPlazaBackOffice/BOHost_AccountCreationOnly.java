@@ -23,6 +23,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 	public static String [] companyLink = {"Prepayment","Exempt"}; 
 	public static boolean passTax = false;
 	public static String paymentType;;
+	public static String accountSelected;
 	
 	
 	
@@ -49,7 +50,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 			fail("No se ha podido crear la cuenta debido a "+errorText);
 		}
 		Thread.sleep(1000);
-		System.out.println("Se ha creado la cuenta "+accountNumbr.substring(7, 16)+" correctamente");
+		System.out.println("Se ha creado la cuenta "+accountSelected+" "+accountNumbr.substring(7, 16)+" correctamente");
 		System.out.println("Se ha probado en la versión del: "+ getVersion("BO","HM"));
 		
 	}
@@ -70,13 +71,14 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 			Thread.sleep(1000);
 			action.moveToElement(driver.findElement(By.linkText("Create account"))).build().perform();
 			Thread.sleep(1000);
-			int selaccount = 1;//ranNumbr(0,1);			
+			int selaccount = ranNumbr(0,1);			
 			if (selaccount == 0){
 				driver.findElement(By.linkText("Individual")).click();
+				accountSelected = "Individual";
 				individualAccount();				
 			}else{
 				action.clickAndHold(driver.findElement(By.linkText("Company"))).build().perform();				
-				companylinkselected = "Exempt";//companyLink[ranNumbr(0,1)];
+				companylinkselected = companyLink[ranNumbr(0,1)];				
 				driver.findElement(By.linkText(companylinkselected)).click();	
 				companyAccount();
 			}
@@ -89,7 +91,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 	}
 	
 	public static void individualAccount() throws Exception{
-		Thread.sleep(2000);
+		Thread.sleep(2000);		
 		takeScreenShot("E:\\Selenium\\","individualAccountPage"+timet+".jpeg");
 		takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","individualAccountPage.jpeg");
 		accountNumbr = driver.findElement(By.id("ctl00_SectionZone_LblTitle")).getText();
@@ -245,6 +247,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 			SendKeys(faxPhone,workPhone1[2]);
 			Thread.sleep(300);
 			if (companylinkselected.equals("Prepayment")){
+				accountSelected = "Prepago";
 				if (ranNumbr(0,1)==0){
 					elementClick("ctl00_ContentZone_ctrlAccountData_chk_dtEnd");
 					Thread.sleep(200);
@@ -254,6 +257,7 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 				}
 			}
 			if (companylinkselected.equals("Exempt")){
+				accountSelected = "Exenta";
 				elementClick("ctl00_ContentZone_ctrlAccountExempt_mck_plaza_img_expand");
 				String [] excentpToll = {"ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl01", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl03","ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl05", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl07", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl09", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl11", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl13", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl15"};
 				Thread.sleep(200);
@@ -304,10 +308,12 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 			takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountFilledPage.jpeg");
 			elementClick("ctl00_ButtonsZone_BtnSave_IB_Label"); //click on Save Button
 			Thread.sleep(3000);
-			takeScreenShot("E:\\Selenium\\","CompanyAccountPayedPage"+timet+".jpeg");
-			takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountPayedPage.jpeg");
-			elementClick("ctl00_ButtonsZone_BtnExecute_IB_Label"); //click on Continue button
-			Thread.sleep(4000);
+			if (companylinkselected.equals("Prepayment")){
+				takeScreenShot("E:\\Selenium\\","CompanyAccountPayedPage"+timet+".jpeg");
+				takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountPayedPage.jpeg");
+				elementClick("ctl00_ButtonsZone_BtnExecute_IB_Label"); //click on Continue button
+				Thread.sleep(4000);
+			}
 			takeScreenShot("E:\\Selenium\\","CompanyAccountCreatedPage"+timet+".jpeg");
 			takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountCreatedPage.jpeg");
 		
