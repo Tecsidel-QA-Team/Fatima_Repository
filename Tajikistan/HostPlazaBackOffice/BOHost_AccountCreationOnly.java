@@ -5,12 +5,14 @@ import tajikistanConfiguration.Settingsfields_File;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import java.util.List;
 
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 
 
@@ -68,14 +70,15 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 			Thread.sleep(1000);
 			action.moveToElement(driver.findElement(By.linkText("Create account"))).build().perform();
 			Thread.sleep(1000);
-			int selaccount = 0;//ranNumbr(0,1);			
+			int selaccount = 1;//ranNumbr(0,1);			
 			if (selaccount == 0){
 				driver.findElement(By.linkText("Individual")).click();
 				individualAccount();				
 			}else{
 				action.clickAndHold(driver.findElement(By.linkText("Company"))).build().perform();				
-				companylinkselected = companyLink[ranNumbr(0,1)];
-				driver.findElement(By.linkText(companylinkselected)).click();				
+				companylinkselected = "Exempt";//companyLink[ranNumbr(0,1)];
+				driver.findElement(By.linkText(companylinkselected)).click();	
+				companyAccount();
 			}
 			Thread.sleep(3000);
 		}catch (Exception e){
@@ -198,6 +201,115 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 				elementClick("ctl00_ButtonsZone_BtnBack_IB_Label");
 			}
 		}
+		
+	}
+	
+	public static void companyAccount() throws Exception{
+		Thread.sleep(2000);		
+			takeScreenShot("E:\\Selenium\\","CompanyAccountPage"+timet+".jpeg");
+			takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountPage.jpeg");
+			accountNumbr = driver.findElement(By.id("ctl00_SectionZone_LblTitle")).getText();
+			SendKeys(passPortid, ranNumbr(100000000,999999999)+"");		
+			Thread.sleep(200);
+			elementClick("ctl00_ContentZone_BtnCheckCI");
+			Thread.sleep(300);
+			if (driver.getPageSource().contains("The passport/tax  value already exists in the system")){
+				errorText = driver.findElement(By.id("ctl00_LblError")).getText();
+				passTax = true;
+				return;
+			}
+			selectDropDown("ctl00_ContentZone_ctrlAccountData_cmb_companyType_cmb_dropdown");
+			Thread.sleep(200);
+			SendKeys(companyf, "Tecsidel, S.A.");
+			Thread.sleep(200);
+			int selOp = ranNumbr(0,9);
+			int selOp2 = ranNumbr(0,9);
+			SendKeys(contactf, nameOp[selOp]+" "+lastNameOp[selOp]+", "+nameOp[selOp2]+" "+lastNameOp[selOp2]);
+			Thread.sleep(200);
+			SendKeys(addressf, "C/Castanyer No. 29");
+			Thread.sleep(200);
+			SendKeys("ctl00_ContentZone_ctrlAccountData_txt_Settlements_box_data", "New Settlements Data");
+			Thread.sleep(200);
+			SendKeys(countryf, "España");
+			Thread.sleep(200);
+			SendKeys(cpf, "080220");
+			Thread.sleep(200);
+			SendKeys(emailf, "info@tecsidel.es");
+			Thread.sleep(200);
+			SendKeys(phoneCel, ranNumbr(600000000,699999999)+"");
+			Thread.sleep(200);
+			SendKeys(workPhone,workPhone1[2]);
+			Thread.sleep(200);
+			SendKeys(perPhone,workPhone1[2]);
+			Thread.sleep(200);
+			SendKeys(faxPhone,workPhone1[2]);
+			Thread.sleep(300);
+			if (companylinkselected.equals("Prepayment")){
+				if (ranNumbr(0,1)==0){
+					elementClick("ctl00_ContentZone_ctrlAccountData_chk_dtEnd");
+					Thread.sleep(200);
+					SendKeys("ctl00_ContentZone_ctrlAccountData_dt_end_box_date", dateSel(2019,2020));
+					Thread.sleep(200);
+					SendKeys("ctl00_ContentZone_ctrlAccountData_txt_warningThreshold_box_data",ranNumbr(1,15)+"");
+				}
+			}
+			if (companylinkselected.equals("Exempt")){
+				elementClick("ctl00_ContentZone_ctrlAccountExempt_mck_plaza_img_expand");
+				String [] excentpToll = {"ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl01", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl03","ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl05", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl07", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl09", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl11", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl13", "ctl00_ContentZone_ctrlAccountExempt_mck_plaza_ctl15"};
+				Thread.sleep(200);
+				int selectOption = ranNumbr(1,8);
+				for (int i=1;i<=selectOption;i++){
+					int clickOp = ranNumbr(0,7);
+					elementClick(excentpToll[clickOp]);
+					Thread.sleep(300);
+				}
+				Thread.sleep(300);
+				elementClick("ctl00_ContentZone_ctrlAccountExempt_mck_plaza_img_expand");;
+				Thread.sleep(300);
+				selectDropDown("ctl00_ContentZone_ctrlAccountExempt_combo_exempts_cmb_dropdown");
+				Thread.sleep(300);
+				if (ranNumbr(0,1)==0){
+					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_expiry_0");
+				}else{
+					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_expiry_1");
+				}
+				if (ranNumbr(0,1)==0){
+					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_trips_0");
+				}else{
+					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_trips_1");
+				}
+			}			
+			if (ranNumbr(0,1)==0){
+				elementClick("ctl00_ContentZone_chk_PublicTransport");
+				Thread.sleep(200);
+				selectDropDown("ctl00_ContentZone_cmb_PublicTransport_cmb_dropdown");
+			}
+			Thread.sleep(300);
+			selectDropDownV("ctl00_ContentZone_type_payment_cmb_dropdown");
+			Thread.sleep(300);
+			selectDropDown("ctl00_ContentZone_type_threshold_cmb_dropdown");
+			Thread.sleep(200);
+			int radbutton = ranNumbr(0,2);
+			if (radbutton == 0){
+				elementClick("ctl00_ContentZone_discount_strategy_0");
+			}
+			if (radbutton == 1){
+				elementClick("ctl00_ContentZone_discount_strategy_1");
+			}
+			if (radbutton == 2){
+				elementClick("ctl00_ContentZone_discount_strategy_2");
+			}
+			Thread.sleep(300);
+			takeScreenShot("E:\\Selenium\\","CompanyAccountFilledPage"+timet+".jpeg");
+			takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountFilledPage.jpeg");
+			elementClick("ctl00_ButtonsZone_BtnSave_IB_Label"); //click on Save Button
+			Thread.sleep(3000);
+			takeScreenShot("E:\\Selenium\\","CompanyAccountPayedPage"+timet+".jpeg");
+			takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountPayedPage.jpeg");
+			elementClick("ctl00_ButtonsZone_BtnExecute_IB_Label"); //click on Continue button
+			Thread.sleep(4000);
+			takeScreenShot("E:\\Selenium\\","CompanyAccountCreatedPage"+timet+".jpeg");
+			takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","CompanyAccountCreatedPage.jpeg");
 		
 	}
 	
