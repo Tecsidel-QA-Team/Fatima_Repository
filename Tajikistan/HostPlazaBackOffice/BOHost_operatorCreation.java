@@ -115,11 +115,11 @@ public class BOHost_operatorCreation extends Settingsfields_File {
 					driver.findElement(By.id("ctl00_ContentZone_password2_box_data")).sendKeys(usercreated);
 					Thread.sleep(5000);
 					takeScreenShot("E:\\Selenium\\","allfilleddata"+timet+".jpg");
-					takeScreenShot("E:\\workspace\\Maria_Repository\\CAC_crearOperadores\\attachments\\","allfilleddata.jpg");
+					takeScreenShot("E:\\workspace\\Fatima_Repository\\CAC_crearOperadores\\attachments\\","allfilleddata.jpg");
 					elementClick("ctl00_ButtonsZone_BtnSubmit_IB_Label");
 					Thread.sleep(2000);
 					takeScreenShot("E:\\Selenium\\","userCreated"+timet+".jpg");
-					takeScreenShot("E:\\workspace\\Maria_Repository\\CAC_crearOperadores\\attachments\\","userCreated.jpg");		
+					takeScreenShot("E:\\workspace\\Fatima_Repository\\CAC_crearOperadores\\attachments\\","userCreated.jpg");		
 					elementClick("ctl00_ButtonsZone_BtnDownload_IB_Label");
 					if (isAlertPresent()){
 						driver.switchTo().alert().accept();
@@ -142,7 +142,7 @@ public class BOHost_operatorCreation extends Settingsfields_File {
 					System.out.println("Se ha Creado el operador "+usercreated+" con la contraseaña: "+usercreated+ " en el grupo de "+operatorG.substring(04));
 					System.out.println("Se ha probado en la versión del BO Host: " + BOVersion.substring(1,16)+" y Host Manager: "+BOVersion.substring(18));
 					takeScreenShot("E:\\Selenium\\","userCreatedscreenHome"+timet+".jpg");
-					takeScreenShot("E:\\workspace\\Maria_Repository\\BOHost_crearOperadores\\attachments\\","userCreatedscreenHome.jpg");
+					takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","userCreatedscreenHome.jpg");
 					Thread.sleep(60000);
 					String connectionUrlPlaza = "jdbc:sqlserver://172.18.130.188:1433;DataBaseName=TAJIKISTAN_QA_TOLLPLAZA"; //+ "user=sa; password=lediscet";//" + "user=SENEGAL_QA_TOLLHOST; password=USRTOLLHOST";
 					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
