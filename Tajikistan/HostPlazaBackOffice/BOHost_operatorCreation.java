@@ -33,7 +33,7 @@ public class BOHost_operatorCreation extends Settingsfields_File {
 	
 			@Before
 			public void setUp() throws Exception{
-    		System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
+    		System.setProperty("webdriver.chrome.driver", "E:\\workspace\\Fatima_Repository\\lib\\chromedriver.exe");
     			/*DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
     			cap.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true
     			cap.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);*/
@@ -66,10 +66,10 @@ public class BOHost_operatorCreation extends Settingsfields_File {
 					takeScreenShot("E:\\workspace\\Fatima_Repository\\BOHost_crearOperadores\\attachments\\","homeBOTajPage.jpg");
 					BOVersion = driver.findElement(By.id("ctl00_statusRight")).getText();
 					Thread.sleep(2000);					
-					action.clickAndHold(driver.findElement(By.linkText("System settings"))).build().perform();
+					action.moveToElement(driver.findElement(By.linkText("System settings"))).build().perform();
 					Thread.sleep(1000);
 					//action.moveToElement(driver.findElement(By.linkText("Configuración de peaje")));
-					action.clickAndHold(driver.findElement(By.linkText("Operators"))).build().perform();
+					action.moveToElement(driver.findElement(By.linkText("Operators"))).build().perform();
 					Thread.sleep(500);
 					driver.findElement(By.linkText("Operators management")).click();								
 					Thread.sleep(1000);
