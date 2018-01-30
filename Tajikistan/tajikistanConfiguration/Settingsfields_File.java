@@ -17,6 +17,15 @@ import org.openqa.selenium.support.ui.Select;
 public class Settingsfields_File {
 	public static String dateverTransacciones;	
 	public static String hmVersion;
+	public static String [] passportLetter= {"A","B","C"};
+	public static String companylinkselected;
+	public static String [] companyLink = {"Prepayment","Exempt"}; 
+	public static boolean passTax = false;
+	public static int carModelSel;
+	public static String confirmationMessage2;
+	public static String errorMessage;
+	public static String paymentType;
+	public static String accountSelected;
 	public static String BoHostUrl="http://virtualbo-qa/BOQAHostTajikistan/web/forms/core/login.aspx";
 	public static String BoPlazaUrl="http://virtualbo-qa/BOQAPlazaTajikistan/web/forms/core/login.aspx";
 	public static String MCSUrl = "http://virtualmcs-qa/MCS_Tajikistan";
@@ -238,12 +247,12 @@ public class Settingsfields_File {
 			int versionComponent = BOVersion.length();
 			 
 			if (BOVersion.contains("_")){								
-				if (versionComponent<17){					
+				if (versionComponent<16){					
 					BOVersion = BOVersion.substring(0);
 					hmVersion = "HM is not Running";
 				}else{
 					hmVersion = BOVersion.substring(17);
-					BOVersion = BOVersion.substring(0, 16);
+					BOVersion = BOVersion.substring(0, 15);
 					
 				}
 			}
@@ -263,7 +272,7 @@ public class Settingsfields_File {
 			if (HMSelected == "HM"){
 				HMSelected = "HostManager: "+hmVersion;				
 			}
-				return BOSelected +" y "+ HMSelected; 
+				return BOSelected +" and "+ HMSelected; 
 			
 			
 						

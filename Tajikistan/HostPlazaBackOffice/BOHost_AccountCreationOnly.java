@@ -5,26 +5,16 @@ import tajikistanConfiguration.Settingsfields_File;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import java.util.List;
-
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+
 
 
 
 public class BOHost_AccountCreationOnly extends Settingsfields_File {
-
-	public static String [] passportLetter= {"A","B","C"};
-	public static String companylinkselected;
-	public static String [] companyLink = {"Prepayment","Exempt"}; 
-	public static boolean passTax = false;
-	public static String paymentType;;
-	public static String accountSelected;
-	
 	
 	
 	@Before
@@ -42,16 +32,16 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 	
 	
 	@Test
-	public void accountCreatoinOnlyInit() throws Exception{		
+	public void accountCreatoinOnlyInit() throws Exception{				
 		Thread.sleep(1000);
 		accountCreationOnly();
 		if (passTax){
-			System.out.println("No se ha podido craer la cuenta debido a: "+errorText);
-			fail("No se ha podido crear la cuenta debido a "+errorText);
+			System.out.println("Unable to create an Account due to: "+errorText);
+			fail("Unable to create an Account due to "+errorText);
 		}
 		Thread.sleep(1000);
-		System.out.println("Se ha creado la cuenta "+accountSelected+" "+accountNumbr.substring(7, 16)+" correctamente");
-		System.out.println("Se ha probado en la versión del: "+ getVersion("BO","HM"));
+		System.out.println("Account created "+accountSelected+" "+accountNumbr.substring(8, 17)+" correctly");
+		System.out.println("Tested in Version of: "+ getVersion("BO","HM"));
 		
 	}
 	
@@ -276,11 +266,17 @@ public class BOHost_AccountCreationOnly extends Settingsfields_File {
 					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_expiry_0");
 				}else{
 					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_expiry_1");
+					SendKeys("ctl00_ContentZone_ctrlAccountExempt_cal_date_expiry_box_date",dateSel(2019,2020));
+					Thread.sleep(100);
+					SendKeys("ctl00_ContentZone_ctrlAccountExempt_txt_days_warning",ranNumbr(1,20)+"");
 				}
 				if (ranNumbr(0,1)==0){
 					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_trips_0");
 				}else{
 					elementClick("ctl00_ContentZone_ctrlAccountExempt_radio_trips_1");
+					SendKeys("ctl00_ContentZone_ctrlAccountExempt_txt_max_trips",ranNumbr(100,999)+"");
+					Thread.sleep(100);
+					SendKeys("ctl00_ContentZone_ctrlAccountExempt_txt_trips_warning",ranNumbr(1,20)+"");
 				}
 			}			
 			if (ranNumbr(0,1)==0){
